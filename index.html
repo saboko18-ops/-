@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Славные земляки Брянщины</title>
+  <meta name="description" content="Индивидуальный проект ПК БГТУ: герои, учёные, мастера культуры, олимпийцы и космонавты, прославившие Брянский край.">
+  <meta property="og:title" content="Славные земляки Брянщины">
+  <meta property="og:description" content="Галерея земляков, хронология, места памяти и викторина.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231F4A36'/%3E%3Cpath d='M16 5l3 8h8l-6.5 5 2.5 8-7-5-7 5 2.5-8L5 13h8z' fill='%23E3B93C'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;700;800&family=Golos+Text:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+    document.documentElement.classList.add("js");
+    try { var t = localStorage.getItem("theme"); if (t) document.documentElement.setAttribute("data-theme", t); } catch (e) {}
+  </script>
+</head>
+<body>
+  <div id="loader" aria-hidden="true">
+    <svg viewBox="0 0 100 100" width="110" height="110">
+      <polygon class="star" points="50,6 61,38 95,38 67,58 78,92 50,71 22,92 33,58 5,38 39,38" pathLength="1"/>
+    </svg>
+    <p>Брянщина</p>
+  </div>
+
+  <div id="wipe" aria-hidden="true"></div>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+
+  <header class="nav">
+    <div class="wrap nav-in">
+      <a class="brand" href="#top">Земляки Брянщины</a>
+      <nav class="nav-links" aria-label="Разделы">
+        <a href="#heroes">Герои</a>
+        <a href="#people">Земляки</a>
+        <a href="#timeline">Хронология</a>
+        <a href="#places">Места</a>
+        <a href="#quiz">Викторина</a>
+        <a href="#criteria">Отбор</a>
+        <a href="#sources">Источники</a>
+      </nav>
+      <button id="theme" class="theme" type="button" aria-label="Сменить тему оформления">Тема</button>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero" id="hero">
+      <div class="hero-photo" id="heroPhoto"></div>
+      <div class="layer l1"></div>
+      <div class="layer l2"></div>
+      <div class="spot"></div>
+      <canvas id="sparks" aria-hidden="true"></canvas>
+      <div class="wrap hero-in">
+        <p class="label rise" style="--i:0">Индивидуальный проект · ПК БГТУ</p>
+        <h1 id="title" aria-label="Славные земляки, прославившие Брянщину">
+          <span class="w">Славные</span>
+          <span class="w">земляки,</span>
+          <span class="w">прославившие</span>
+          <span class="w accent">Брянщину</span>
+        </h1>
+        <p class="hero-text rise" style="--i:7">Лётчики и партизаны, учёные и музыканты, олимпийские чемпионы и космонавты. Люди, по которым узнают край.</p>
+        <div class="hero-cta rise" style="--i:8">
+          <a class="btn primary" href="#people">Смотреть земляков</a>
+          <a class="btn" href="#timeline">Хронология</a>
+          <a class="btn" href="#quiz">Викторина</a>
+        </div>
+        <dl class="stats rise" style="--i:9">
+          <div><dt>дважды Героя Советского Союза</dt><dd><span data-count="3">3</span></dd></div>
+          <div><dt>золота Большунова в Пекине-2022</dt><dd><span data-count="3">3</span></dd></div>
+          <div><dt>брянца в отряде космонавтов</dt><dd><span data-count="2">2</span></dd></div>
+          <div><dt>год первого упоминания Брянска</dt><dd><span data-count="1146">1146</span></dd></div>
+        </dl>
+      </div>
+      <a class="scroll-cue" href="#marquee" aria-label="Прокрутить вниз"><i></i></a>
+    </section>
+
+    <div class="marquee" id="marquee" aria-hidden="true"><div class="marquee-track" id="marqueeTrack"></div></div>
+
+    <section id="heroes">
+      <div class="wrap">
+        <p class="label reveal">Главные герои</p>
+        <h2 class="reveal">Лица Брянщины</h2>
+        <p class="lead reveal">Семь судеб из разных сфер. Листайте стрелками, клавишами или свайпом.</p>
+        <div class="carousel reveal" id="car" role="region" aria-roledescription="карусель" aria-label="Главные герои">
+          <div class="car-viewport" id="carView" tabindex="0">
+            <div class="car-track" id="carTrack"></div>
+          </div>
+          <div class="car-ui">
+            <button class="car-btn" id="carPrev" type="button" aria-label="Предыдущий слайд">←</button>
+            <div class="car-dots" id="carDots"></div>
+            <button class="car-btn" id="carNext" type="button" aria-label="Следующий слайд">→</button>
+          </div>
+          <div class="car-timer" aria-hidden="true"><i id="carTimer"></i></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="people">
+      <div class="wrap">
+        <p class="label reveal">Галерея</p>
+        <h2 class="reveal">Земляки</h2>
+        <p class="lead reveal">Нажмите «Подробнее» на карточке. Пунктирные карточки: в плане проекта указаны только инициалы, полные данные сверяются с официальными источниками.</p>
+        <div class="controls reveal">
+          <div class="chips" role="group" aria-label="Фильтр по сфере">
+            <button class="chip" type="button" data-f="all" aria-pressed="true">Все</button>
+            <button class="chip" type="button" data-f="war" aria-pressed="false">Защитники Отечества</button>
+            <button class="chip" type="button" data-f="sc" aria-pressed="false">Наука и культура</button>
+            <button class="chip" type="button" data-f="sp" aria-pressed="false">Спорт и космос</button>
+          </div>
+          <label class="sr" for="q">Поиск по имени или месту</label>
+          <input id="q" type="search" placeholder="Поиск по имени или месту" autocomplete="off">
+          <p id="count" class="count" aria-live="polite"></p>
+        </div>
+        <div class="grid" id="grid"></div>
+      </div>
+    </section>
+
+    <section id="timeline">
+      <div class="wrap">
+        <p class="label reveal">Время</p>
+        <h2 class="reveal">Хронология славы</h2>
+        <p class="lead reveal">От летописи 1146 года до олимпийского золота 2022-го. Линия растёт по мере прокрутки.</p>
+        <ol class="tl" id="tl"><li class="tl-line" aria-hidden="true"><i id="tlFill"></i></li></ol>
+      </div>
+    </section>
+
+    <section id="places">
+      <div class="wrap">
+        <p class="label reveal">Память</p>
+        <h2 class="reveal">Места памяти</h2>
+        <p class="lead reveal">Листайте вбок. Здесь история Брянщины видна в камне, земле и железе.</p>
+      </div>
+      <div class="places-wrap">
+        <div class="places" id="placesRow" tabindex="0" aria-label="Галерея мест памяти"></div>
+      </div>
+    </section>
+
+    <section id="quiz">
+      <div class="wrap">
+        <p class="label reveal">Проверь себя</p>
+        <h2 class="reveal">Викторина</h2>
+        <div class="quiz reveal" id="quizBox" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section id="criteria">
+      <div class="wrap">
+        <p class="label reveal">Методика</p>
+        <h2 class="reveal">Как выбирали героев</h2>
+        <p class="lead reveal">Брянская область образована в 1944 году, Брянск впервые упомянут в летописи под 1146 годом. Рассказать обо всех нельзя, поэтому использованы пять критериев.</p>
+        <div class="crit">
+          <div class="reveal" style="--d:0"><h3>Связь с краем</h3><p>Родился, вырос, учился или долго работал на брянской земле.</p></div>
+          <div class="reveal" style="--d:1"><h3>Значимость</h3><p>Подтверждена наградами, званиями, степенями, олимпийскими медалями.</p></div>
+          <div class="reveal" style="--d:2"><h3>Влияние</h3><p>Подвиг, открытие, стройка, книга или победа известны за пределами региона.</p></div>
+          <div class="reveal" style="--d:3"><h3>Память</h3><p>Имя в названиях улиц и школ, памятниках, музеях, книгах.</p></div>
+          <div class="reveal" style="--d:4"><h3>Пример</h3><p>Жизненный путь может служить ориентиром для молодёжи.</p></div>
+        </div>
+        <div class="mem">
+          <div class="reveal">
+            <h3>Как хранится память</h3>
+            <ul>
+              <li>Площадь Партизан и Вечный огонь в Брянске.</li>
+              <li>Улицы, мемориальные доски и памятные знаки, связанные с именем П. М. Камозина.</li>
+              <li>Детская школа искусств № 1 имени Т. П. Николаевой.</li>
+              <li>Конкурс вокалистов имени А. Д. Вяльцевой.</li>
+              <li>Международный конкурс юных пианистов имени Т. П. Николаевой, с 1996 года.</li>
+            </ul>
+          </div>
+          <div class="reveal" style="--d:1">
+            <h3>Что может сделать школьник</h3>
+            <ul>
+              <li><b>Карточка земляка:</b> полное имя, даты, место рождения, подтверждённые достижения, связь с краем, источники.</li>
+              <li><b>Маршрут памяти:</b> выбрать несколько мемориальных мест, проверить адреса и часы работы, составить экскурсию.</li>
+              <li><b>Проверка перед публикацией:</b> имена, даты, подписи к фото, авторские права. Спорный факт помечать как требующий уточнения.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="sources">
+      <div class="wrap">
+        <p class="label reveal">Литература</p>
+        <h2 class="reveal">Источники</h2>
+        <ol class="src reveal">
+          <li>Правительство Брянской области. Материалы о Героях Брянщины и П. М. Камозине. <a href="https://www.bryanskobl.ru/" target="_blank" rel="noopener">bryanskobl.ru</a></li>
+          <li>Государственный архив Брянской области. Материалы о М. П. Ромашине и М. И. Дуке. <a href="https://archive-bryansk.ru/" target="_blank" rel="noopener">archive-bryansk.ru</a></li>
+          <li>Государственный архив Брянской области. «Герои Брянщины. М. П. Ромашин». <a href="https://old.archive-bryansk.ru/node/611" target="_blank" rel="noopener">old.archive-bryansk.ru/node/611</a></li>
+          <li>Брянский государственный университет. Материалы о И. Г. Петровском. <a href="https://brgu.ru/" target="_blank" rel="noopener">brgu.ru</a></li>
+          <li>Союз городов воинской славы. «Брянск в годы Великой Отечественной войны». <a href="https://srgvs.ru/node/146" target="_blank" rel="noopener">srgvs.ru/node/146</a></li>
+          <li>Память народа: электронный банк документов. <a href="https://pamyat-naroda.ru/" target="_blank" rel="noopener">pamyat-naroda.ru</a></li>
+          <li>Российская государственная библиотека, электронный каталог. <a href="https://www.rsl.ru/" target="_blank" rel="noopener">rsl.ru</a></li>
+          <li>Роскосмос, материалы о космонавтах. <a href="https://www.roscosmos.ru/" target="_blank" rel="noopener">roscosmos.ru</a></li>
+          <li>Олимпийские протоколы. <a href="https://olympics.com/" target="_blank" rel="noopener">olympics.com</a></li>
+          <li>Википедия: <a href="https://en.wikipedia.org/wiki/Aleksandr_Golovachev" target="_blank" rel="noopener">А. А. Головачёв</a>, <a href="https://en.wikipedia.org/wiki/David_Dragunsky" target="_blank" rel="noopener">Д. А. Драгунский</a>, <a href="https://en.wikipedia.org/wiki/Tatiana_Nikolayeva" target="_blank" rel="noopener">Т. П. Николаева</a>.</li>
+          <li>Знание.Вики: <a href="https://znanierussia.ru/articles/%D0%90%D1%84%D0%B0%D0%BD%D0%B0%D1%81%D1%8C%D0%B5%D0%B2,_%D0%92%D0%B8%D0%BA%D1%82%D0%BE%D1%80_%D0%9C%D0%B8%D1%85%D0%B0%D0%B9%D0%BB%D0%BE%D0%B2%D0%B8%D1%87" target="_blank" rel="noopener">В. М. Афанасьев</a>, <a href="https://znanierussia.ru/articles/%D0%9A%D1%83%D1%80%D0%BA%D0%B8%D0%BD%D0%B0" target="_blank" rel="noopener">Л. Н. Куркина</a>.</li>
+          <li>Энциклопедия «Кругосвет»: <a href="https://www.krugosvet.ru/enc/kultura_i_obrazovanie/literatura/GRIBACHEV_NIKOLA_MATVEEVICH.html" target="_blank" rel="noopener">Н. М. Грибачёв</a>.</li>
+          <li>Sport24 и «ПНП» о паралимпийцах Брянска: <a href="https://sport24.ru/other/article-rossiyskiy-legkoatlet-artem-kalashyan-vyigral-serebro-v-bege-na-distantsii-100-metrov-na-paralimpiade-2024-goda-v-parizhe-biografiya-poda-dtsp" target="_blank" rel="noopener">А. Калашян</a>, <a href="https://www.pnp.ru/top/site/premiyu-paralimpiyskogo-komiteta-vozvrashhenie-v-zhizn-vruchili-v-bryanske.html" target="_blank" rel="noopener">премия «Возвращение в жизнь»</a>.</li>
+        </ol>
+        <p class="note reveal">Число вылетов и побед П. М. Камозина взято из справки Правительства Брянской области. В других публикациях цифры могут отличаться из-за методики подсчёта.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <p><b>Политехнический колледж БГТУ</b> · Брянск, 2026</p>
+      <p>Индивидуальный проект студентов группы 26-РУПО-3-СПО: В. Гашичев, М. Никейцев. Руководитель: Е. В. Григорьева.</p>
+    </div>
+  </footer>
+
+  <button id="toTop" class="to-top" type="button" aria-label="Наверх">↑</button>
+
+  <script src="js/data.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>
